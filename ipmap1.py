@@ -9,3 +9,9 @@ async def scan(ip):
     stdout, _ = await process.communicate()
     result = stdout.decode().strip()
     return result
+
+async def handle(request):
+    ip_scan = request.match_info.get('toScan', "127.0.0.1")
+    to_return = ''
+    to_return += await scan(ip_scan)
+    return web.Response(text=str(to_return))
