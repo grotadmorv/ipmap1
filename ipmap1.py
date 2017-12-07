@@ -2,6 +2,7 @@ import argparse
 import re
 import asyncio
 import json
+import xmltodict
 from aiohttp import web
 
 async def scan(ip):
@@ -15,6 +16,7 @@ async def handle(request):
     to_return = ''
     to_return += await scan(ip_scan)
     return web.Response(text=str(to_return))
+    #return web.Response(text=str(json.dumps(xmltodict.parse(str(to_return)))))
 
 def main():
     loop = asyncio.ProactorEventLoop()
